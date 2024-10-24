@@ -1,12 +1,14 @@
 package com.bignerdranch.android.criminalintent
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.bignerdranch.android.criminalintent.databinding.ListItemCrimeBinding
 import com.bignerdranch.android.criminalintent.databinding.ListItemSeriousCrimeBinding
+import java.text.SimpleDateFormat
 
 abstract class Holder (
     private val binding: ViewBinding
@@ -18,8 +20,9 @@ class CrimeHolder(
     private val binding: ListItemCrimeBinding
 ) : Holder(binding) {
     override fun bind(crime: Crime) {
+        val dateFormat = SimpleDateFormat("EEE, MMM dd, YYYY")
         binding.crimeTitle.text = crime.title
-        binding.crimeDate.text = crime.date.toString()
+        binding.crimeDate.text = dateFormat.format(crime.date).toString()
 
         binding.root.setOnClickListener {
             Toast.makeText(
@@ -28,6 +31,11 @@ class CrimeHolder(
                 Toast.LENGTH_SHORT
             ).show()
         }
+        binding.crimeSolved.visibility = if (crime.requiresPolice) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 }
 
@@ -35,8 +43,9 @@ class SeriousCrimeHolder(
     private val binding: ListItemSeriousCrimeBinding
 ) : Holder(binding) {
     override fun bind(crime: Crime) {
+        val dateFormat = SimpleDateFormat("EEE, MMM dd, YYYY")
         binding.crimeTitle.text = crime.title
-        binding.crimeDate.text = crime.date.toString()
+        binding.crimeDate.text = dateFormat.format(crime.date).toString()
 
         binding.root.setOnClickListener {
             Toast.makeText(
