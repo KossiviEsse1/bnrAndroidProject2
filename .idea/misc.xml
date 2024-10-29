@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/layout/fragment_crime_list.xml" value="0.2" />
         <entry key="app/src/main/res/layout/list_item_crime.xml" value="0.5" />
         <entry key="app/src/main/res/layout/list_item_serious_crime.xml" value="0.5" />
+        <entry key="app/src/main/res/menu/fragment_crime_detail.xml" value="0.34375" />
         <entry key="app/src/main/res/menu/fragment_crime_list.xml" value="0.34375" />
       </map>
     </option>
