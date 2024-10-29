@@ -2,9 +2,7 @@ package com.bignerdranch.android.criminalintent
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.widget.*
@@ -31,6 +29,11 @@ class CrimeDetailFragment : Fragment() {
     private val args: CrimeDetailFragmentArgs by navArgs()
     private val crimeDetailViewModel: CrimeDetailViewModel by viewModels {
         CrimeDetailViewModelFactory(args.crimeId)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -114,6 +117,28 @@ class CrimeDetailFragment : Fragment() {
                 )
             }
             crimeSolved.isChecked = crime.isSolved
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.fragment_crime_detail, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.delete_crime ->{
+                deleteCrime()
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun deleteCrime() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            crimeDetailViewModel.deleteCrime()
+            findNavController().popBackStack()
         }
     }
 }
