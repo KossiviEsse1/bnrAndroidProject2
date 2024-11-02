@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.bignerdranch.android.criminalintent">
-
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <application
         android:name=".CriminalIntentApplication"
         android:allowBackup="true"
@@ -24,5 +24,15 @@
             </intent-filter>
         </activity>
     </application>
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PICK"/>
+            <data android:mimeType="vnd.android.cursor.dir/contact" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.DIAL"/>
+            <data android:mimeType="vnd.android.cursor.dir/phone_v2"/>
+        </intent>
+    </queries>
 
 </manifest>
